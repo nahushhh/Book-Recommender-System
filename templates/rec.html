@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Recommender System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
+
+    <style>
+        .typeahead {
+            width: 50%;
+            top: 60px !important;
+            left: 50px !important;
+        }
+    </style>
+<body>
+    <h1 style="text-align: center;">Book Recommender System</h1>
+
+    <form action="/recommend_books", method="post">
+        <input name="user_input" type="text" class="form-control" data-provide="typeahead">
+        <input type="submit" class="btn btn-large">
+    </form>
+
+    {% if data %}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-13">
+                    <h3 style="margin-top: 40px;">Recommendations</h3>
+                </div>
+            </div>
+            <div class="row">
+                {%for i in data %}
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <img class = "card-img-top" src="{{i[2]}}" alt="Book cover">
+                                <h5>Title - {{i[0]}}</h5>
+                                <p>Author - {{i[1]}}</p>
+                            </div>
+                        </div>
+                    </div>
+            {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+   
+</body>
+</html>
