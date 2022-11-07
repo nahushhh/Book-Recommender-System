@@ -22,11 +22,12 @@ def home():
 
 @app.route("/recommend")
 def recommend(): 
-    return render_template("rec.html")
+    return render_template("rec.html", list_of_books = list_of_books)
 
-@app.route("/recommend_books", methods=["post"])
+@app.route("/recommend_books", methods=["POST"])
 def recommend_books(): 
     user_input = request.form.get('user_input')
+    print(user_input)
     #print(user_input)
     index = np.where(final_df.index==user_input)[0][0]
     similar_books = sorted(list(enumerate(similarity[index])), key=lambda x: x[1], reverse=True)[1:6]
@@ -39,7 +40,7 @@ def recommend_books():
         item.extend(list(temp_df.drop_duplicates('Book-Title')['Image-URL-M'].values))
         data.append(item)
     print(data)
-    return render_template('rec.html', data=data)
+    return render_template('rec.html', data=data, list_of_books=list_of_books)
 
 if __name__ == "__main__":
     app.run(debug=True) 

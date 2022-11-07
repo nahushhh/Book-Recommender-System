@@ -19,9 +19,19 @@
 <body>
     <h1 style="text-align: center;">Book Recommender System</h1>
 
-    <form action="/recommend_books", method="post">
+    <!-- <form action="/recommend_books", method="post">
         <input name="user_input" type="text" class="form-control" data-provide="typeahead">
         <input type="submit" class="btn btn-large">
+    </form> -->
+
+    <form action="/recommend_books", method="POST">
+        <select data-live-search="true" name="user_input" class="form-select" aria-label="Default select example" >
+            <option selected>Open this select menu</option>
+            {% for i in list_of_books %}
+                <option value="{{ i }}">{{ i }}</option>
+            {% endfor %}
+            <input type="submit" class="btn btn-large">
+        </select>
     </form>
 
     {% if data %}
@@ -46,6 +56,19 @@
             </div>
         </div>
     {% endif %}
+
+    {% if not data %}
+    <form action="/recommend_books", method="POST">
+        <select data-live-search="true" name="user_input" class="form-select" aria-label="Default select example" >
+            <option selected>Open this select menu</option>
+            {% for i in list_of_books %}
+                <option value="{{ i }}">{{ i }}</option>
+            {% endfor %}
+            <input type="submit" class="btn btn-large">
+        </select>
+    </form>
+    {% endif %}
+    
    
 </body>
 </html>
